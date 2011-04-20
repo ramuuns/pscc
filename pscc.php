@@ -1,7 +1,40 @@
 <?php
+/**
+ * Copyright (c) 2011 Mediaparks, SIA
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+ /*
+  * PHP SQL CREATE (table) Converter class
+  *
+  */
 
 	class PSCC {
 
+		/**
+		 *
+		 * @param String $sqlQuery
+		 * @param boolean $cleanWhitespace (default = true)
+		 * @return array tokenized SQL query
+		 */
 		public static function tokenize($sqlQuery,$cleanWhitespace = true) {
 
 			/**
@@ -35,6 +68,12 @@
 
 		}
 
+		/**
+		 *
+		 * @param array $table (the table data format returned by self::getTableInfoFromCreateStatement function
+		 * @param string $db_type (currently can be mysql or pgsql)
+		 * @return array of SQL statements required for creating the table
+		 */
 		public static function getTranslatedTableDef($table,$db_type) {
 			
 			$ret = array();
@@ -105,6 +144,12 @@
 			return $ret;
 		}
 
+		/**
+		 *
+		 * @param array $column a column field definition defined by self::getTableInfoFromCreateStatement function
+		 * @param string $db_type (currently can be mysql or pgsql)
+		 * @return string type definition
+		 */
 		public static function translateType($column,$db_type) {
 
 			if ( $db_type == 'mysql' ) {
@@ -153,6 +198,11 @@
 		}
 
 
+		/**
+		 *
+		 * @param string $query a VALID SQL create table statement
+		 * @return array table info
+		 */
 		public static function getTableInfoFromCreateStatement($query) {
 
 			$table = array(
