@@ -10,7 +10,7 @@
 				include 'pscc.php';
 				$table = PSCC::getTableInfoFromCreateStatement($_POST['sql']);
 				//var_dump($table);
-				echo implode(";\n",PSCC::getTranslatedTableDef($table, $_POST['db_type']));
+				echo htmlspecialchars(implode(";\n",PSCC::getTranslatedTableDef($table, $_POST['db_type'])),ENT_COMPAT,'utf-8');
 			?></pre>
 		<?php } ?>
 
@@ -21,7 +21,7 @@
 				<option value="pgsql">PostgreSQL</option>
 			</select></label><br/>
 			<label> Create statement (assumed valid)<br/>
-				<textarea name="sql" rows="20" cols="60"><?php echo isset($_POST['sql'])?htmlspecialchars($_POST['sql']):''; ?></textarea>
+				<textarea name="sql" rows="20" cols="60"><?php echo isset($_POST['sql'])?htmlspecialchars($_POST['sql'],ENT_COMPAT,'utf-8'):''; ?></textarea>
 			</label><br/>
 			<button type="submit">Convert</button>
 		</form>

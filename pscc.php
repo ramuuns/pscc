@@ -154,6 +154,10 @@
 
 			if ( $db_type == 'mysql' ) {
 				switch ( strtolower($column['type']) ) {
+					case 'inet':
+						$column['type'] = 'integer';
+						$column['is_unsigned'] = true;
+						break;
 					case 'character varying':
 						$column['type'] = 'varchar';
 						break;
@@ -163,6 +167,9 @@
 						break;
 				}
 				$ret = ' '.$column['type'];
+				if ( $column['is_unsigned'] ) {
+					$ret.= ' UNSIGNED ';
+				}
 				if ( $column['typelen'] ) {
 					$ret.=' ('.$column['typelen'].') ';
 				}
@@ -292,6 +299,7 @@
 						break;
 					case '`':
 						break;
+					case 'inet':
 					case 'bit':
 					case 'tinyint':
 					case 'smallint':
