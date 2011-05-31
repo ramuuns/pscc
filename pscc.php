@@ -227,6 +227,8 @@
 			foreach ( $tokens as $token ) {
 				switch ( strtolower($token) ) {
 					case "\t":
+					case "\n":
+					case "\r":
 					case ' ':
 						break;
 					case 'create':
